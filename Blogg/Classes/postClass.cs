@@ -10,6 +10,7 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 using RestSharp;
 using System.Net;
+using System.Windows.Controls;
 
 namespace Blogg
 {
@@ -17,7 +18,7 @@ namespace Blogg
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private bool _Visible = false;
-        private bool _isOpen = true;
+
         private Visibility _visible;
 
         public bool Visible
@@ -82,6 +83,8 @@ namespace Blogg
     public static class PostUtility
     {
         public static isFinishedNotifier isFinished;
+        public static Image[] image;
+        public static StackPanel stackPanel;
 
         public static void sendPost(string blogID, string title, string content)
         {
@@ -147,7 +150,7 @@ namespace Blogg
             });
         }
 
-        public static void uploadPhoto(string blogName, Stream stream)
+        public static bool uploadPhoto(string blogName, Stream stream)
         {
             //isFinished.Visible = true;
             //isFinished.Enabled = false;
@@ -207,12 +210,23 @@ namespace Blogg
                                 string result = httpWebStreamReader.ReadToEnd();
                                 XDocument res = XDocument.Parse(result);
                                 System.Diagnostics.Debug.WriteLine(res.Element(name + "entry").Element(name + "content").Attribute("src").Value);
+                                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                {
+                                    System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
+                                    bmp.SetSource(stream);
+                                    Image img = new Image();
+                                    img.Source = bmp;
+                                    img.Width = 150;
+                                    img.Height = 100;
+                                    stackPanel.Children.Add(img);
+                                });
                                 //return res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
                             }
                         }, myRequest);
                     }, imgRequest);
                 }
             });
+            return true;
         }       
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using System.IO;
 
 namespace Blogg
 {
@@ -22,6 +23,10 @@ namespace Blogg
         public Page1()
         {
             InitializeComponent();
+            PostUtility.stackPanel = new StackPanel();
+            PostUtility.stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+            PostUtility.stackPanel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            mainPanel.Children.Add(PostUtility.stackPanel);
             if (App.blog.blogCollection.Count > 1)
             {
                 foreach (var blog in App.blog.blogCollection)
@@ -41,8 +46,6 @@ namespace Blogg
             {
                 PostUtility.uploadPhoto((listPicker.SelectedItem as string), e.ChosenPhoto);
                 //Code to display the photo on the page in an image control named myImage.
-                //System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
-                //bmp.SetSource(e.ChosenPhoto);
                 //myImage.Source = bmp;
             }
         }
