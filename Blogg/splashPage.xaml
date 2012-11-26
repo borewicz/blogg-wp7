@@ -1,0 +1,28 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Blogg.splashPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:phoneNavigation="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480" Background="#FFFE6700">
+	
+	<phone:PhoneApplicationPage.ApplicationBar>
+    	<shell:ApplicationBar BackgroundColor="#FFFE6700" x:Name="appBar" IsVisible="False">
+    	    <shell:ApplicationBarIconButton Text="sign in" IconUri="/icons/appbar.key.png" Click="signInButton" />
+            <shell:ApplicationBarIconButton Text="create new" IconUri="/icons/appbar.user.add.png" Click="createNewButton"/>
+        </shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
+
+	<Grid Background="#FFFE6700">
+		<Path Height="100" Stretch="Fill" Fill="#FFFFF9F9" Data="F1 M 26.9999,16.0001L 31.9999,21.0001L 20,33L 15,28L 26.9999,16.0001 Z M 32.9497,19.9999L 28,15.0501L 30.1213,12.9288C 30.9024,12.1477 32.1687,12.1477 32.9498,12.9288L 35.0711,15.0501C 35.8521,15.8312 35.8521,17.0975 35.0711,17.8785L 32.9497,19.9999 Z M 13.75,34.7499L 13.25,34.2499L 14.5625,30.0624L 17.9376,33.4374L 13.75,34.7499 Z " Width="100" Stroke="White" HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="False"/>
+	</Grid>
+
+
+</phone:PhoneApplicationPage>
+
