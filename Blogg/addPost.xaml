@@ -58,11 +58,12 @@
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
 			<StackPanel x:Name="mainPanel" Orientation="Vertical">
 				<toolkit:PhoneTextBox Hint="enter title text" x:Name="titleTextBox"
-						BorderBrush="Transparent" SelectionForeground="White" Foreground="Black" Background="Transparent" VerticalAlignment="Top" BorderThickness="0" Height="60" />
+						BorderBrush="Transparent" SelectionForeground="White" Foreground="Black" Background="Transparent" VerticalAlignment="Top" BorderThickness="0" Height="70" />
 				<toolkit:ListPicker x:Name="listPicker" Margin="8,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" VerticalAlignment="Top" BorderThickness="0"/>
-				<ScrollViewer Height="500" >
+				<ScrollViewer Height="470" >
 					<toolkit:PhoneTextBox Hint="enter content" x:Name="contentTextBox" SelectionForeground="White" Foreground="Black" Background="Transparent" AcceptsReturn="True" TextWrapping="Wrap" BorderThickness="0" VerticalScrollBarVisibility="Visible" BorderBrush="#BF000000" />
 				</ScrollViewer>
+				<ScrollViewer x:Name="scrollViewer" Height="120" Margin="10,0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible"/>
             </StackPanel>
 		</Grid>
 	</Grid>

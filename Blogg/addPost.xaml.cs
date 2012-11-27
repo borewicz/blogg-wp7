@@ -26,7 +26,8 @@ namespace Blogg
             PostUtility.stackPanel = new StackPanel();
             PostUtility.stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
             PostUtility.stackPanel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            mainPanel.Children.Add(PostUtility.stackPanel);
+            // scrollViewer.Children.Add(PostUtility.stackPanel);
+            scrollViewer.Content = PostUtility.stackPanel;
             if (App.blog.blogCollection.Count > 1)
             {
                 foreach (var blog in App.blog.blogCollection)

@@ -83,8 +83,8 @@ namespace Blogg
     public static class PostUtility
     {
         public static isFinishedNotifier isFinished;
-        public static Image[] image;
         public static StackPanel stackPanel;
+        public static List<string> images;
 
         public static void sendPost(string blogID, string title, string content)
         {
@@ -219,6 +219,7 @@ namespace Blogg
                                     img.Width = 150;
                                     img.Height = 100;
                                     stackPanel.Children.Add(img);
+                                    images.Add(res.Element(name + "entry").Element(name + "content").Attribute("src").Value);
                                 });
                                 //return res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
                             }
