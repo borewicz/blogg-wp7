@@ -84,7 +84,7 @@ namespace Blogg
     {
         public static isFinishedNotifier isFinished;
         public static StackPanel stackPanel;
-        public static List<string> images;
+        public static List<string> images = new List<string>();
 
         public static void sendPost(string blogID, string title, string content)
         {
@@ -209,7 +209,9 @@ namespace Blogg
                             {
                                 string result = httpWebStreamReader.ReadToEnd();
                                 XDocument res = XDocument.Parse(result);
-                                System.Diagnostics.Debug.WriteLine(res.Element(name + "entry").Element(name + "content").Attribute("src").Value);
+                                string link = res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
+                                System.Diagnostics.Debug.WriteLine(link);
+                                images.Add(link);
                                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                                 {
                                     System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
@@ -219,7 +221,6 @@ namespace Blogg
                                     img.Width = 150;
                                     img.Height = 100;
                                     stackPanel.Children.Add(img);
-                                    images.Add(res.Element(name + "entry").Element(name + "content").Attribute("src").Value);
                                 });
                                 //return res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
                             }

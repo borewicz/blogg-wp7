@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using System.IO;
+using System.Windows.Threading;
 
 namespace Blogg
 {
@@ -67,6 +68,12 @@ namespace Blogg
             //    App.blog.sendPost(App.blog.blogID, titleTextBox.Text, contentTextBox.Text, categoriesTextBox.Text, 0);
             //else MessageBox.Show("You didn't't fill required data!", "Error", MessageBoxButton.OK);
             //System.Diagnostics.Debug.WriteLine(contentTextBox.GetHtml(C1.Phone.RichTextBox.Documents.HtmlEncoding.Inline));
+        }
+
+        private void contentTextBox_TextInputStart(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+        	this.contentScroll.UpdateLayout();
+ 			this.contentScroll.ScrollToVerticalOffset(this.contentTextBox.ActualHeight);
         }
     }
 }
