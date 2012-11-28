@@ -17,44 +17,7 @@ namespace Blogg
     public class isFinishedNotifier : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private bool _Visible = false;
-
-        private Visibility _visible;
-
-        public bool Visible
-        {
-            get { return this._Visible; }
-
-            set
-            {
-                if (value != this._Visible)
-                {
-                    this._Visible = value;
-                    NotifyPropertyChanged("Visible");
-                }
-            }
-        }
-
-        public Visibility visible
-        {
-            get { return this._visible; }
-
-            set
-            {
-                if (this._visible != Visibility.Collapsed)
-                {
-                    this._visible = Visibility.Collapsed;
-                    NotifyPropertyChanged("visible");
-                }
-                else
-                {
-                    this._visible = Visibility.Visible;
-                    NotifyPropertyChanged("visible");
-                }
-            }
-        }
-
-        private bool _Enabled;
+        private bool _Enabled = false;
 
         public bool Enabled
         {
@@ -82,14 +45,12 @@ namespace Blogg
 
     public static class PostUtility
     {
-        public static isFinishedNotifier isFinished;
+        public static isFinishedNotifier isFinished = new isFinishedNotifier();
         public static StackPanel stackPanel;
         public static List<string> images = new List<string>();
 
         public static void sendPost(string blogID, string title, string content)
         {
-            isFinished.Visible = true;
-            isFinished.Enabled = false;
             var client = new RestClient();
             var request = new RestRequest("https://www.googleapis.com/blogger/v3/blogs/" + blogID + "/posts/", Method.POST);
             request.AddHeader("Authorization", "Bearer " + oAuth.access_token);
@@ -114,9 +75,6 @@ namespace Blogg
                 else { MessageBox.Show(resp.StatusCode.ToString()); }
                 //App.prog.IsVisible = false;
             });
-            isFinished.Visible = false;
-            isFinished.Enabled = true;
-            isFinished.visible = Visibility.Visible;
         }
 
         public static void removePost(string blogID, string postID)
@@ -155,6 +113,7 @@ namespace Blogg
             //isFinished.Visible = true;
             //isFinished.Enabled = false;
             //isFinished.visible = Visibility.Collapsed;
+            isFinished.Enabled = true;
             string blogUrl = null;
 
             var client = new RestClient();
@@ -214,6 +173,7 @@ namespace Blogg
                                 images.Add(link);
                                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                                 {
+                                    isFinished.Enabled = false;
                                     System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
                                     bmp.SetSource(stream);
                                     Image img = new Image();
@@ -228,6 +188,7 @@ namespace Blogg
                     }, imgRequest);
                 }
             });
+            //isFinished.Enabled = false;
             return true;
         }       
     }

@@ -14,6 +14,9 @@
 	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
 	mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480">
+	<phone:PhoneApplicationPage.Resources>
+		<local:isFinishedNotifier x:Key="isFinishedNotifierDataSource"/>
+	</phone:PhoneApplicationPage.Resources>
     
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar BackgroundColor="OrangeRed">
@@ -64,6 +67,7 @@
 					<toolkit:PhoneTextBox Hint="enter content" x:Name="contentTextBox" SelectionForeground="White" Foreground="Black" Background="Transparent" AcceptsReturn="True" TextWrapping="Wrap" BorderThickness="0" VerticalScrollBarVisibility="Visible" BorderBrush="#BF000000" TextInputStart="contentTextBox_TextInputStart" />
 				</ScrollViewer>
 				<ScrollViewer x:Name="scrollViewer" Height="120" Margin="10,0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible"/>
+				<ProgressBar Height="10" Background="OrangeRed" IsHitTestVisible="False" IsIndeterminate="{Binding Enabled}"/>
             </StackPanel>
 		</Grid>
 	</Grid>

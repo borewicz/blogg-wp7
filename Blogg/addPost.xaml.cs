@@ -24,6 +24,7 @@ namespace Blogg
         public Page1()
         {
             InitializeComponent();
+            DataContext = PostUtility.isFinished;
             PostUtility.stackPanel = new StackPanel();
             PostUtility.stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
             PostUtility.stackPanel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
