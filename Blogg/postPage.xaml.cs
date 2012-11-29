@@ -38,5 +38,14 @@ namespace Blogg
                 webBrowser.Navigate(new Uri(url + "?m=1"));
             }
         }
+
+        private void deleteClick(object sender, System.EventArgs e)
+        {
+            MessageBoxResult m = MessageBox.Show("This post will be deleted.", "Warning", MessageBoxButton.OKCancel);
+            if (m == MessageBoxResult.OK)
+            {
+                PostUtility.removePost(blogID, postID);
+            }
+        }
     }
 }

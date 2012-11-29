@@ -14,38 +14,8 @@ using System.Windows.Controls;
 
 namespace Blogg
 {
-    public class isFinishedNotifier : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private bool _Enabled = false;
-
-        public bool Enabled
-        {
-            get { return this._Enabled; }
-
-            set
-            {
-                if (value != this._Enabled)
-                {
-                    this._Enabled = value;
-                    NotifyPropertyChanged("Enabled");
-                }
-            }
-        }
-
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
-    }
-
     public static class PostUtility
     {
-        public static isFinishedNotifier isFinished = new isFinishedNotifier();
         public static StackPanel stackPanel;
         public static List<string> images = new List<string>();
 
@@ -100,7 +70,7 @@ namespace Blogg
             client.ExecuteAsync(request, (resp) =>
             {
                 //System.Diagnostics.Debug.WriteLine(resp.Content);
-                if (resp.StatusCode == HttpStatusCode.OK)
+                if (resp.StatusCode == HttpStatusCode.NoContent)
                 {
                     /*
                         * from gr in App.dataSource.blogs
@@ -119,6 +89,7 @@ namespace Blogg
                     }
                     (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
                 }
+                else { MessageBox.Show(resp.StatusCode.ToString()); }
             });
         }
 
@@ -206,6 +177,7 @@ namespace Blogg
                         }, myRequest);
                     }, imgRequest);
                 }
+                else { MessageBox.Show(resp.StatusCode.ToString()); }
             });
             //isFinished.Enabled = false;
             return true;

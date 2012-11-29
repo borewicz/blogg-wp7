@@ -14,7 +14,7 @@
     shell:SystemTray.IsVisible="True">
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar BackgroundColor="OrangeRed" >
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.delete.rest.png" Text="delete"/>
+			<shell:ApplicationBarIconButton IconUri="/icons/appbar.delete.rest.png" Text="delete" Click="deleteClick"/>
 			<shell:ApplicationBarIconButton IconUri="/icons/appbar.pin.png" Text="pin"/>
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
