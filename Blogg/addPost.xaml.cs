@@ -65,6 +65,12 @@ namespace Blogg
 
         private void publishButtonClick(object sender, System.EventArgs e)
         {
+            string blogID = (from blog in App.blog.blogCollection
+                                 where blog.name == (listPicker.SelectedItem as string)
+                                 select blog.id).First();
+
+            PostUtility.sendPost(blogID, titleTextBox.Text, contentTextBox.Text);
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             //if (contentTextBox.Text != "")
             //    App.blog.sendPost(App.blog.blogID, titleTextBox.Text, contentTextBox.Text, categoriesTextBox.Text, 0);
             //else MessageBox.Show("You didn't't fill required data!", "Error", MessageBoxButton.OK);

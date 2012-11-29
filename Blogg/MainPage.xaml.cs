@@ -32,6 +32,15 @@ namespace Blogg
             //App.prog.IsIndeterminate = true;
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            do
+            {
+                NavigationService.RemoveBackEntry();
+            }
+            while (NavigationService.CanGoBack != false);
+        }
+
         private void showPostTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             //ListBoxItem selectedListBoxItem = .ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;

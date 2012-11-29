@@ -55,6 +55,14 @@ namespace Blogg
             var request = new RestRequest("https://www.googleapis.com/blogger/v3/blogs/" + blogID + "/posts/", Method.POST);
             request.AddHeader("Authorization", "Bearer " + oAuth.access_token);
 
+            string replaceWith = "<br>";
+            content = content.Replace("\r\n", replaceWith).Replace("\n", replaceWith).Replace("\r", replaceWith);
+            content += "<br>";
+            foreach (string img in images)
+            {
+                content += ("<img align=\"center\" src=\"" + img + "\"></img><br>");
+            }
+
             JObject rss = new JObject(
                 new JProperty("kind", "blogger#post"),
                 new JProperty("blog", new JObject(new JProperty("id", blogID))),
@@ -68,9 +76,10 @@ namespace Blogg
 
             client.ExecuteAsync(request, (resp) =>
             {
-                if (resp.StatusCode == HttpStatusCode.Created) 
+                if (resp.StatusCode == HttpStatusCode.OK) 
                 {
-                    (Application.Current.RootVisual as PhoneApplicationFrame).GoBack(); ;
+                    App.blog.blogCollection.Clear();
+                    App.blog.GetBlogsList();
                 }
                 else { MessageBox.Show(resp.StatusCode.ToString()); }
                 //App.prog.IsVisible = false;
@@ -103,7 +112,7 @@ namespace Blogg
                             break;
                         }
                     }
-                    (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/blogList.xaml", UriKind.Relative));
+                    (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
                 }
             });
         }
