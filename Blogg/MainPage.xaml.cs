@@ -27,6 +27,7 @@ namespace Blogg
             //postList.ItemsSource = App.blog.postCollection;
             this.DataContext = App.blog.blogCollection;
             this.postList.ItemsSource = App.blog.blogCollection;
+            SystemTray.SetProgressIndicator(this, App.prog); 
             //draftList.ItemsSource = App.blog.draftCollection;
             //App.prog.IsVisible = true;
             //App.prog.IsIndeterminate = true;
@@ -49,6 +50,7 @@ namespace Blogg
             //ListBoxItem selectedListBoxItem = this.postList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
             //App.webbrowser.Uri = new Uri(App.blog.postCollection[postList.SelectedIndex].url);
             App.webbrowser.Show();
+            (sender as ListBox).SelectedItem = null;
             //App.blog.deletePost("6247561895747118623", (selectedListBoxItem.Content as postListClass).id);
         }
 

@@ -51,6 +51,9 @@ namespace Blogg
 
         public static void sendPost(string blogID, string title, string content)
         {
+            App.prog.Text = "Publishing...";
+            App.prog.IsIndeterminate = true;
+            App.prog.IsVisible = true;
             var client = new RestClient();
             var request = new RestRequest("https://www.googleapis.com/blogger/v3/blogs/" + blogID + "/posts/", Method.POST);
             request.AddHeader("Authorization", "Bearer " + oAuth.access_token);
@@ -83,6 +86,8 @@ namespace Blogg
                 }
                 else { MessageBox.Show(resp.StatusCode.ToString()); }
                 //App.prog.IsVisible = false;
+                App.prog.IsIndeterminate = false;
+                App.prog.IsVisible = false;
             });
         }
 
@@ -122,7 +127,10 @@ namespace Blogg
             //isFinished.Visible = true;
             //isFinished.Enabled = false;
             //isFinished.visible = Visibility.Collapsed;
-            isFinished.Enabled = true;
+            //isFinished.Enabled = true;
+            App.prog.Text = "Uploading...";
+            App.prog.IsIndeterminate = true;
+            App.prog.IsVisible = true;
             string blogUrl = null;
 
             var client = new RestClient();
@@ -182,7 +190,9 @@ namespace Blogg
                                 images.Add(link);
                                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                                 {
-                                    isFinished.Enabled = false;
+                                    App.prog.IsIndeterminate = false;
+                                    App.prog.IsVisible = false;
+                                    //isFinished.Enabled = false;
                                     System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
                                     bmp.SetSource(stream);
                                     Image img = new Image();

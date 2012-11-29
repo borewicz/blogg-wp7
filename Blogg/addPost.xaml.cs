@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using System.IO;
 using System.Windows.Threading;
+using Microsoft.Phone.Shell;
 
 namespace Blogg
 {
@@ -30,6 +31,7 @@ namespace Blogg
             PostUtility.stackPanel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             // scrollViewer.Children.Add(PostUtility.stackPanel);
             scrollViewer.Content = PostUtility.stackPanel;
+            SystemTray.SetProgressIndicator(this, App.prog); 
             if (App.blog.blogCollection.Count > 1)
             {
                 foreach (var blog in App.blog.blogCollection)

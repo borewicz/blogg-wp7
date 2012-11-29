@@ -191,6 +191,9 @@ namespace Blogg
 
         public void GetBlogsList()
         {
+            App.prog.Text = "Updating...";
+            App.prog.IsIndeterminate = true;
+            App.prog.IsVisible = true;
             var client = new RestClient();
             var request = new RestRequest("https://www.googleapis.com/blogger/v3/users/self/blogs", Method.GET);
             request.AddHeader("Authorization", "Bearer " + oAuth.access_token);
@@ -259,6 +262,8 @@ namespace Blogg
                     (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
                 }
                 else MessageBox.Show(resp.StatusCode.ToString());
+                App.prog.IsIndeterminate = false;
+                App.prog.IsVisible = false;
             });
             
             //System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => { App.prog.IsVisible = true; });
