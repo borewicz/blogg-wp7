@@ -26,6 +26,11 @@
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 
+    <phone:PhoneApplicationPage.Resources>
+        <local:RelativeDateTimeConverter x:Key="RelativeDateTimeConverter" />
+        <toolkit:RelativeTimeConverter x:Key="RelativeTimeConverter"/>
+    </phone:PhoneApplicationPage.Resources>
+    
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -66,7 +71,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding name}" Style="{StaticResource PhoneTextLargeStyle}" MaxHeight="40"/>
+                            <TextBlock Text="{Binding name}" Style="{StaticResource PhoneTextLargeStyle}" MaxHeight="45"/>
                             <!--<TextBlock Text="{Binding summary}" TextWrapping="NoWrap"/>-->
                             <ListBox Tap="showPostTap" x:Name="postList2" Margin="0,0,12,12" ItemsSource="{Binding Items}" ScrollViewer.VerticalScrollBarVisibility="Disabled" toolkit:TiltEffect.IsTiltEnabled="True">
                                 <ListBox.ItemTemplate>
@@ -80,8 +85,8 @@
                                                 <Rectangle Fill="Red" Stretch="UniformToFill"/>
                                             </Border>
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                <TextBlock Text="{Binding name}"/>
-                                                <TextBlock Text="{Binding time}" TextWrapping="NoWrap"/>
+                                                <TextBlock Text="{Binding name}" FontSize="22" MaxHeight="40" />
+                                                <TextBlock Text="{Binding time, Converter={StaticResource RelativeDateTimeConverter}}" FontSize="18" Foreground="Gray" TextWrapping="NoWrap"/>
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>
