@@ -25,10 +25,11 @@ using Microsoft.Phone.Shell;
 using Newtonsoft.Json.Linq;
 using System.Windows.Media.Imaging;
 using HtmlAgilityPack;
+using System.ComponentModel;
 
 namespace Blogg
 {
-    public class PostItem
+    public class PostItem : INotifyPropertyChanged
     {
         public string id { get; set; }
         public string name { get; set; }
@@ -37,7 +38,34 @@ namespace Blogg
         public string blogID { get; set; }
         public DateTime time { get; set; }
         public string author { get; set; }
-        public BitmapImage authorAvatar { get; set; }
+        private BitmapImage _authorAvatar { get; set; }
+
+        public BitmapImage authorAvatar
+        {
+            get
+            {
+                return this._authorAvatar;
+            }
+
+            set
+            {
+                if (value != this._authorAvatar)
+                {
+                    this._authorAvatar = value;
+                    OnPropertyChanged("authorAvatar");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 
     //public class draftItem
@@ -56,7 +84,7 @@ namespace Blogg
     //    }
     //}
 
-    public class BlogItem
+    public class BlogItem : INotifyPropertyChanged
     {
         public string id { get; set; }
         public string name { get; set; }
@@ -72,6 +100,16 @@ namespace Blogg
             get
             {
                 return this._Items;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
     }
@@ -256,64 +294,43 @@ namespace Blogg
                                             postItem.author = p["author"]["displayName"].ToString();
                                             postItem.url = p["url"].ToString();
                                             postItem.authorAvatar = new BitmapImage();
-                                            postItem.profile = p["author"]["url"].ToString();
-
-                                            string profile = p["author"]["url"].ToString();
-                                            if (dict.ContainsKey(profile))
+                                            //author.image.url
+                                            string profile = p["author"]["image"]["url"].ToString();
+                                            if (profile != "http://img2.blogblog.com/img/b16-rounded.gif")
                                             {
-                                                //postItem.authorAvatar = dict[profile];
+                                                if (dict.ContainsKey(profile))
+                                                    postItem.authorAvatar = dict[profile];
+                                                else
+                                                {
+                                                    var photoRequest = new RestRequest(profile, Method.GET);
+                                                    client.ExecuteAsync(photoRequest, (photoResponse) =>
+                                                    {
+                                                        if (photoResponse.StatusCode == HttpStatusCode.OK)
+                                                        {
+                                                            string output = photoResponse.Content;
+                                                            byte[] bytes = photoResponse.RawBytes;
+                                                            //System.Buffer.BlockCopy(output.ToCharArray(), 0, bytes, 0, bytes.Length);
+                                                            using (MemoryStream stream = new MemoryStream(bytes))
+                                                            {
+                                                                stream.Seek(0, SeekOrigin.Begin);
+                                                                BitmapImage b = new BitmapImage();
+                                                                b.SetSource(stream);
+                                                                if (!dict.ContainsKey(profile))
+                                                                    dict.Add(profile, b);
+                                                                postItem.authorAvatar = dict[profile];
+                                                                //blogItem.Items.Add(postItem);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            else
+                                            {
                                                 BitmapImage bitmap = new BitmapImage();
                                                 bitmap.UriSource = new Uri("/icons/blogger.png", UriKind.Relative);
                                                 postItem.authorAvatar = bitmap;
                                             }
-                                            else
-                                            {
-                                                //System.Diagnostics.Debug.WriteLine(profile);
-                                                var imageRequest = new RestRequest(profile, Method.GET);
-                                                client.ExecuteAsync(imageRequest, (imageResponse) =>
-                                                {
-                                                    //System.Diagnostics.Debug.WriteLine(postResponse.Content);
-                                                    if (imageResponse.StatusCode == HttpStatusCode.OK)
-                                                    {
-                                                        string profileHTML = imageResponse.Content;
-                                                        HtmlDocument doc = new HtmlDocument();
-                                                        doc.LoadHtml(profileHTML);
-
-                                                        string ziuta = (from node in doc.DocumentNode.Descendants()
-                                                                        where node.Name == "img"
-                                                                        where node.Attributes[0].Value == "photo"
-                                                                        select node.Attributes[1].Value).FirstOrDefault();
-                                                        if (ziuta != null)
-                                                        {
-                                                            var photoRequest = new RestRequest(ziuta, Method.GET);
-                                                            client.ExecuteAsync(photoRequest, (photoResponse) =>
-                                                            {
-                                                                if (photoResponse.StatusCode == HttpStatusCode.OK)
-                                                                {
-                                                                    string output = photoResponse.Content;
-                                                                    byte[] bytes = photoResponse.RawBytes;
-                                                                    //System.Buffer.BlockCopy(output.ToCharArray(), 0, bytes, 0, bytes.Length);
-                                                                    using (MemoryStream stream = new MemoryStream(bytes))
-                                                                    {
-                                                                        stream.Seek(0, SeekOrigin.Begin);
-                                                                        BitmapImage b = new BitmapImage();
-                                                                        b.SetSource(stream);
-                                                                        if (!dict.ContainsKey(profile))
-                                                                            dict.Add(profile, b);
-                                                                        postItem.authorAvatar = dict[profile];
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        BitmapImage bitmap = new BitmapImage();
-                                                        bitmap.UriSource = new Uri("/icons/blogger.png", UriKind.Relative);
-                                                        postItem.authorAvatar = bitmap;
-                                                    }
-                                                });                                         
-                                            }
+                                            blogItem.Items.Add(postItem);
                                         }
                                     }
                                     this.blogCollection.Add(blogItem);

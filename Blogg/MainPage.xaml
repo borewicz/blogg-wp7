@@ -82,7 +82,7 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Border Width="60" Height="60">
-                                                <Image Source="{Binding authorAvatar}" Stretch="UniformToFill"/>
+                                                <Image Source="{Binding authorAvatar, Mode=OneWay}" Stretch="UniformToFill"/>
                                             </Border>
                                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                                 <TextBlock Text="{Binding name}" FontSize="22" MaxHeight="40" />
