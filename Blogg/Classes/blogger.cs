@@ -23,6 +23,8 @@ using System.IO.IsolatedStorage;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Phone.Shell;
 using Newtonsoft.Json.Linq;
+using System.Windows.Media.Imaging;
+using HtmlAgilityPack;
 
 namespace Blogg
 {
@@ -31,9 +33,11 @@ namespace Blogg
         public string id { get; set; }
         public string name { get; set; }
         public string url { get; set; }
+        public string profile { get; set; }
         public string blogID { get; set; }
         public DateTime time { get; set; }
         public string author { get; set; }
+        public BitmapImage authorAvatar { get; set; }
     }
 
     //public class draftItem
@@ -204,6 +208,8 @@ namespace Blogg
                 //System.Diagnostics.Debug.WriteLine(resp.Content);
                 if (resp.StatusCode == HttpStatusCode.OK)
                 {
+                    Dictionary<string, BitmapImage> dict = new Dictionary<string,BitmapImage>();
+
                     JObject root = JObject.Parse(resp.Content);
                     if (root["items"] != null)
                     {
@@ -249,8 +255,65 @@ namespace Blogg
                                             postItem.time = Convert.ToDateTime(p["published"].ToString());
                                             postItem.author = p["author"]["displayName"].ToString();
                                             postItem.url = p["url"].ToString();
+                                            postItem.authorAvatar = new BitmapImage();
+                                            postItem.profile = p["author"]["url"].ToString();
 
-                                            blogItem.Items.Add(postItem);
+                                            string profile = p["author"]["url"].ToString();
+                                            if (dict.ContainsKey(profile))
+                                            {
+                                                //postItem.authorAvatar = dict[profile];
+                                                BitmapImage bitmap = new BitmapImage();
+                                                bitmap.UriSource = new Uri("/icons/blogger.png", UriKind.Relative);
+                                                postItem.authorAvatar = bitmap;
+                                            }
+                                            else
+                                            {
+                                                //System.Diagnostics.Debug.WriteLine(profile);
+                                                var imageRequest = new RestRequest(profile, Method.GET);
+                                                client.ExecuteAsync(imageRequest, (imageResponse) =>
+                                                {
+                                                    //System.Diagnostics.Debug.WriteLine(postResponse.Content);
+                                                    if (imageResponse.StatusCode == HttpStatusCode.OK)
+                                                    {
+                                                        string profileHTML = imageResponse.Content;
+                                                        HtmlDocument doc = new HtmlDocument();
+                                                        doc.LoadHtml(profileHTML);
+
+                                                        string ziuta = (from node in doc.DocumentNode.Descendants()
+                                                                        where node.Name == "img"
+                                                                        where node.Attributes[0].Value == "photo"
+                                                                        select node.Attributes[1].Value).FirstOrDefault();
+                                                        if (ziuta != null)
+                                                        {
+                                                            var photoRequest = new RestRequest(ziuta, Method.GET);
+                                                            client.ExecuteAsync(photoRequest, (photoResponse) =>
+                                                            {
+                                                                if (photoResponse.StatusCode == HttpStatusCode.OK)
+                                                                {
+                                                                    string output = photoResponse.Content;
+                                                                    byte[] bytes = photoResponse.RawBytes;
+                                                                    //System.Buffer.BlockCopy(output.ToCharArray(), 0, bytes, 0, bytes.Length);
+                                                                    using (MemoryStream stream = new MemoryStream(bytes))
+                                                                    {
+                                                                        stream.Seek(0, SeekOrigin.Begin);
+                                                                        BitmapImage b = new BitmapImage();
+                                                                        b.SetSource(stream);
+                                                                        if (!dict.ContainsKey(profile))
+                                                                            dict.Add(profile, b);
+                                                                        postItem.authorAvatar = dict[profile];
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        BitmapImage bitmap = new BitmapImage();
+                                                        bitmap.UriSource = new Uri("/icons/blogger.png", UriKind.Relative);
+                                                        postItem.authorAvatar = bitmap;
+                                                    }
+                                                });                                         
+                                            }
                                         }
                                     }
                                     this.blogCollection.Add(blogItem);
@@ -260,10 +323,10 @@ namespace Blogg
                         }
                     }
                     (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                    App.prog.IsIndeterminate = false;
+                    App.prog.IsVisible = false;
                 }
                 else MessageBox.Show(resp.StatusCode.ToString());
-                App.prog.IsIndeterminate = false;
-                App.prog.IsVisible = false;
             });
             
             //System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => { App.prog.IsVisible = true; });
