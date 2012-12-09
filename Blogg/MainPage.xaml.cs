@@ -16,6 +16,7 @@ using Microsoft.Phone.Shell;
 using System.Windows.Data;
 using System.Globalization;
 using System.ComponentModel;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -24,6 +25,10 @@ namespace Blogg
         public MainPage()
         {
             InitializeComponent();
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).Text = AppResources.NewPost;
+            ((ApplicationBarMenuItem)ApplicationBar.MenuItems[0]).Text = AppResources.BloggerWWW;
+            ((ApplicationBarMenuItem)ApplicationBar.MenuItems[1]).Text = AppResources.SignOut;
+
             //postList.ItemsSource = App.blog.postCollection;
             this.DataContext = App.blog.blogCollection;
             this.postList.ItemsSource = App.blog.blogCollection;

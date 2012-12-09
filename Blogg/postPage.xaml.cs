@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -23,6 +25,8 @@ namespace Blogg
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).Text = AppResources.Delete;
+
             if (this.NavigationContext.QueryString.ContainsKey("blogid") && this.NavigationContext.QueryString.ContainsKey("postid"))
             {
                 System.Diagnostics.Debug.WriteLine(this.NavigationContext.QueryString["blogid"]);
@@ -41,7 +45,7 @@ namespace Blogg
 
         private void deleteClick(object sender, System.EventArgs e)
         {
-            MessageBoxResult m = MessageBox.Show("This post will be deleted.", "Warning", MessageBoxButton.OKCancel);
+            MessageBoxResult m = MessageBox.Show(AppResources.WarningDelete, AppResources.Warning, MessageBoxButton.OKCancel);
             if (m == MessageBoxResult.OK)
             {
                 PostUtility.removePost(blogID, postID);

@@ -14,7 +14,7 @@
 	
 	<phone:PhoneApplicationPage.ApplicationBar>
     	<shell:ApplicationBar BackgroundColor="#FFFE6700" x:Name="appBar" IsVisible="False">
-    	    <shell:ApplicationBarIconButton Text="sign in" IconUri="/icons/appbar.key.png" Click="signInButton" />
+            <shell:ApplicationBarIconButton Text="sign in" IconUri="/icons/appbar.key.png" Click="signInButton" />
             <shell:ApplicationBarIconButton Text="create new" IconUri="/icons/appbar.user.add.png" Click="createNewButton"/>
         </shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>

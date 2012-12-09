@@ -26,6 +26,7 @@ using Newtonsoft.Json.Linq;
 using System.Windows.Media.Imaging;
 using HtmlAgilityPack;
 using System.ComponentModel;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -233,7 +234,7 @@ namespace Blogg
 
         public void GetBlogsList()
         {
-            App.prog.Text = "Updating...";
+            App.prog.Text = AppResources.Updating;
             App.prog.IsIndeterminate = true;
             App.prog.IsVisible = true;
             var client = new RestClient();

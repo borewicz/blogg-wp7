@@ -16,9 +16,21 @@ using Microsoft.Phone.Tasks;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.IO;
+using Blogg.Translations;
 
 namespace Blogg
 {
+    public class LocalizedStrings
+    {
+        public LocalizedStrings() { }
+
+        private static AppResources localizedResources = new AppResources();
+
+        public AppResources LocalizedResources
+        {
+            get { return localizedResources; }
+        }
+    }
     /*
 
     public class BoolToVisibleOrHidden : IValueConverter

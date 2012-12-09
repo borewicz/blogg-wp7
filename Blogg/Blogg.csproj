@@ -16,8 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>
-    </SupportedCultures>
+    <SupportedCultures>pl-PL;</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>Blogg.xap</XapFilename>
@@ -65,12 +64,6 @@
     <Reference Include="RestSharp.WindowsPhone, Version=104.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RestSharp.104.1\lib\sl4-wp71\RestSharp.WindowsPhone.dll</HintPath>
-    </Reference>
-    <Reference Include="samples_AsyncCtpLibrary">
-      <HintPath>..\..\..\Visual Studio 2010\samples_AsyncCtpLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="samples_AsyncCtpLibrary_Phone">
-      <HintPath>..\..\..\Visual Studio 2010\samples_AsyncCtpLibrary_Phone.dll</HintPath>
     </Reference>
     <Reference Include="System.Servicemodel" />
     <Reference Include="System.Servicemodel.Web" />
@@ -127,6 +120,16 @@
     </Compile>
     <Compile Include="settingsPage.xaml.cs">
       <DependentUpon>settingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Translations\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Translations\AppResources.pl-PL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.pl-PL.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +246,16 @@
     <Content Include="icons\appbar.link.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Translations\AppResources.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Translations\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

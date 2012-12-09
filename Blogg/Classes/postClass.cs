@@ -11,6 +11,7 @@ using Microsoft.Phone.Controls;
 using RestSharp;
 using System.Net;
 using System.Windows.Controls;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -21,7 +22,7 @@ namespace Blogg
 
         public static void sendPost(string blogID, string title, string content)
         {
-            App.prog.Text = "Publishing...";
+            App.prog.Text = AppResources.Publishing;
             App.prog.IsIndeterminate = true;
             App.prog.IsVisible = true;
             var client = new RestClient();
@@ -99,7 +100,7 @@ namespace Blogg
             //isFinished.Enabled = false;
             //isFinished.visible = Visibility.Collapsed;
             //isFinished.Enabled = true;
-            App.prog.Text = "Uploading...";
+            App.prog.Text = AppResources.Uploading;
             App.prog.IsIndeterminate = true;
             App.prog.IsVisible = true;
             string blogUrl = null;

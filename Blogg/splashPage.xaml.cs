@@ -14,6 +14,8 @@ using System.Text;
 using System.IO;
 using System.IO.IsolatedStorage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Phone.Shell;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -24,6 +26,8 @@ namespace Blogg
             InitializeComponent();
             string savedToken;
             IsolatedStorageSettings.ApplicationSettings.TryGetValue<string>("refresh_token", out savedToken);
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).Text = AppResources.SignIn;
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).Text = AppResources.CreateNew;
             if (savedToken != null)
                 oAuth.refreshToken(savedToken);
             else

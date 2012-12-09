@@ -14,6 +14,7 @@ using Microsoft.Phone.Tasks;
 using System.IO;
 using System.Windows.Threading;
 using Microsoft.Phone.Shell;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -25,6 +26,10 @@ namespace Blogg
         public Page1()
         {
             InitializeComponent();
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).Text = AppResources.Publish;
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).Text = AppResources.Camera;
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).Text = AppResources.Picture;
+
             PostUtility.stackPanel = new StackPanel();
             PostUtility.stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
             PostUtility.stackPanel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
@@ -75,7 +80,7 @@ namespace Blogg
                 PostUtility.sendPost(blogID, titleTextBox.Text, contentTextBox.Text);
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            else MessageBox.Show("Title is required.", "Error", MessageBoxButton.OK);
+            else MessageBox.Show(AppResources.TitleRequired, AppResources.Error, MessageBoxButton.OK);
             //if (contentTextBox.Text != "")
             //    App.blog.sendPost(App.blog.blogID, titleTextBox.Text, contentTextBox.Text, categoriesTextBox.Text, 0);
             //else MessageBox.Show("You didn't't fill required data!", "Error", MessageBoxButton.OK);
