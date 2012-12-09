@@ -205,4 +205,8 @@
     <value>This post will be deleted.</value>
     <comment>This post will be deleted.</comment>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Blogg!</value>
+    <comment>Welcome to Blogg!</comment>
+  </data>
 </root>

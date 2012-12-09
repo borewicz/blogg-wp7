@@ -351,7 +351,10 @@ namespace Blogg
                     App.prog.IsIndeterminate = false;
                     App.prog.IsVisible = false;
                 }
-                else MessageBox.Show(resp.StatusCode.ToString());
+                else
+                {
+                    MessageBox.Show(AppResources.ErrorOccured + resp.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                }
             });
             
             //System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => { App.prog.IsVisible = true; });

@@ -12,6 +12,7 @@ using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.IO.IsolatedStorage;
 using Microsoft.Phone.Controls;
+using Blogg.Translations;
 
 namespace Blogg
 {
@@ -72,7 +73,10 @@ namespace Blogg
                     }
                     else System.Diagnostics.Debug.WriteLine("Error : " + o["error"]);
                 }
-                else { MessageBox.Show(resp.StatusCode.ToString()); }
+                else
+                {
+                    MessageBox.Show(AppResources.ErrorOccured + resp.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                }
                 //App.prog.IsVisible = false;
             });
         }

@@ -31,7 +31,10 @@ namespace Blogg
             if (savedToken != null)
                 oAuth.refreshToken(savedToken);
             else
+            {
                 ApplicationBar.IsVisible = true;
+                welcomeText.Visibility = Visibility.Visible;
+            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

@@ -257,5 +257,14 @@ namespace Blogg.Translations {
                 return ResourceManager.GetString("WarningDelete", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Blogg!.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
     }
 }

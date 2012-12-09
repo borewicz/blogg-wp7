@@ -20,7 +20,8 @@
 	</phone:PhoneApplicationPage.ApplicationBar>
 
 	<Grid Background="#FFFE6700">
-		<Path Height="100" Stretch="Fill" Fill="#FFFFF9F9" Data="F1 M 26.9999,16.0001L 31.9999,21.0001L 20,33L 15,28L 26.9999,16.0001 Z M 32.9497,19.9999L 28,15.0501L 30.1213,12.9288C 30.9024,12.1477 32.1687,12.1477 32.9498,12.9288L 35.0711,15.0501C 35.8521,15.8312 35.8521,17.0975 35.0711,17.8785L 32.9497,19.9999 Z M 13.75,34.7499L 13.25,34.2499L 14.5625,30.0624L 17.9376,33.4374L 13.75,34.7499 Z " Width="100" Stroke="White" HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="False"/>
+		<Path Height="100" Stretch="Fill" Fill="#FFFFF9F9" Data="F1 M 26.9999,16.0001L 31.9999,21.0001L 20,33L 15,28L 26.9999,16.0001 Z M 32.9497,19.9999L 28,15.0501L 30.1213,12.9288C 30.9024,12.1477 32.1687,12.1477 32.9498,12.9288L 35.0711,15.0501C 35.8521,15.8312 35.8521,17.0975 35.0711,17.8785L 32.9497,19.9999 Z M 13.75,34.7499L 13.25,34.2499L 14.5625,30.0624L 17.9376,33.4374L 13.75,34.7499 Z " Width="100" Stroke="White" HorizontalAlignment="Center" VerticalAlignment="Top" UseLayoutRounding="False" Margin="0,350,0,0"/>
+        <TextBlock x:Name="welcomeText" Margin="40,490,40,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.Welcome, Source={StaticResource LocalizedStrings}}" FontSize="32" TextAlignment="Center" Foreground="White" VerticalAlignment="Top" d:LayoutOverrides="Width" Visibility="Collapsed"/>
 	</Grid>
 
 
