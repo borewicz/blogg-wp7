@@ -133,6 +133,15 @@ namespace Blogg.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error occured: .
+        /// </summary>
+        public static string ErrorOccured {
+            get {
+                return ResourceManager.GetString("ErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to latest posts.
         /// </summary>
         public static string LatestPosts {
@@ -174,6 +183,15 @@ namespace Blogg.Translations {
         public static string Publishing {
             get {
                 return ResourceManager.GetString("Publishing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to . Check your internet connection or contact Blogg&apos;s author..
+        /// </summary>
+        public static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
             }
         }
         

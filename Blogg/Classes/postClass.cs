@@ -55,7 +55,10 @@ namespace Blogg
                     App.blog.blogCollection.Clear();
                     App.blog.GetBlogsList();
                 }
-                else { MessageBox.Show(resp.StatusCode.ToString()); }
+                else
+                {
+                    MessageBox.Show(AppResources.ErrorOccured + resp.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                }
                 //App.prog.IsVisible = false;
                 App.prog.IsIndeterminate = false;
                 App.prog.IsVisible = false;
@@ -90,7 +93,10 @@ namespace Blogg
                     }
                     (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
                 }
-                else { MessageBox.Show(resp.StatusCode.ToString()); }
+                else
+                {
+                    MessageBox.Show(AppResources.ErrorOccured + resp.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                }
             });
         }
 
@@ -135,50 +141,60 @@ namespace Blogg
                         blogUrl = "https://picasaweb.google.com/data/feed/api/user/default/albumid/default";
                     }
 
-                    HttpWebRequest imgRequest = (HttpWebRequest)HttpWebRequest.Create(new Uri(blogUrl));
-                    imgRequest.Method = "POST";
-                    imgRequest.ContentType = "image/jpeg";
-                    imgRequest.Headers["Authorization"] = "Bearer " + oAuth.access_token;
-                    imgRequest.BeginGetRequestStream((callbackResult) =>
+                    try
                     {
-                        HttpWebRequest myRequest = (HttpWebRequest)callbackResult.AsyncState;
-                        // End the stream request operation
-                        Stream postStream = myRequest.EndGetRequestStream(callbackResult);
-                        byte[] file = App.ReadFully(stream);
-                        postStream.Write(file, 0, file.Length);
-                        postStream.Close();
-
-                        // Start the web request
-                        myRequest.BeginGetResponse((requestCallbackResult) =>
+                        HttpWebRequest imgRequest = (HttpWebRequest)HttpWebRequest.Create(new Uri(blogUrl));
+                        imgRequest.Method = "POST";
+                        imgRequest.ContentType = "image/jpeg";
+                        imgRequest.Headers["Authorization"] = "Bearer " + oAuth.access_token;
+                        imgRequest.BeginGetRequestStream((callbackResult) =>
                         {
-                            HttpWebRequest newRequest = (HttpWebRequest)requestCallbackResult.AsyncState;
-                            HttpWebResponse response = (HttpWebResponse)newRequest.EndGetResponse(requestCallbackResult);
-                            using (StreamReader httpWebStreamReader = new StreamReader(response.GetResponseStream()))
+                            HttpWebRequest myRequest = (HttpWebRequest)callbackResult.AsyncState;
+                            // End the stream request operation
+                            Stream postStream = myRequest.EndGetRequestStream(callbackResult);
+                            byte[] file = App.ReadFully(stream);
+                            postStream.Write(file, 0, file.Length);
+                            postStream.Close();
+
+                            // Start the web request
+                            myRequest.BeginGetResponse((requestCallbackResult) =>
                             {
-                                string result = httpWebStreamReader.ReadToEnd();
-                                XDocument res = XDocument.Parse(result);
-                                string link = res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
-                                System.Diagnostics.Debug.WriteLine(link);
-                                images.Add(link);
-                                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                HttpWebRequest newRequest = (HttpWebRequest)requestCallbackResult.AsyncState;
+                                HttpWebResponse response = (HttpWebResponse)newRequest.EndGetResponse(requestCallbackResult);
+                                using (StreamReader httpWebStreamReader = new StreamReader(response.GetResponseStream()))
                                 {
-                                    App.prog.IsIndeterminate = false;
-                                    App.prog.IsVisible = false;
-                                    //isFinished.Enabled = false;
-                                    System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
-                                    bmp.SetSource(stream);
-                                    Image img = new Image();
-                                    img.Source = bmp;
-                                    img.Width = 150;
-                                    img.Height = 100;
-                                    stackPanel.Children.Add(img);
-                                });
-                                //return res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
-                            }
-                        }, myRequest);
-                    }, imgRequest);
+                                    string result = httpWebStreamReader.ReadToEnd();
+                                    XDocument res = XDocument.Parse(result);
+                                    string link = res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
+                                    System.Diagnostics.Debug.WriteLine(link);
+                                    images.Add(link);
+                                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                                    {
+                                        App.prog.IsIndeterminate = false;
+                                        App.prog.IsVisible = false;
+                                        //isFinished.Enabled = false;
+                                        System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
+                                        bmp.SetSource(stream);
+                                        Image img = new Image();
+                                        img.Source = bmp;
+                                        img.Width = 150;
+                                        img.Height = 100;
+                                        stackPanel.Children.Add(img);
+                                    });
+                                    //return res.Element(name + "entry").Element(name + "content").Attribute("src").Value;
+                                }
+                            }, myRequest);
+                        }, imgRequest);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(AppResources.ErrorOccured + e.Message + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                    }
                 }
-                else { MessageBox.Show(resp.StatusCode.ToString()); }
+                else
+                {
+                    MessageBox.Show(AppResources.ErrorOccured + resp.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                }
             });
             //isFinished.Enabled = false;
             return true;

@@ -322,6 +322,10 @@ namespace Blogg
                                                                 //blogItem.Items.Add(postItem);
                                                             }
                                                         }
+                                                        else
+                                                        {
+                                                            MessageBox.Show(AppResources.ErrorOccured + photoResponse.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                                                        }
                                                     });
                                                 }
                                             }
@@ -336,7 +340,10 @@ namespace Blogg
                                     }
                                     this.blogCollection.Add(blogItem);
                                 }
-                                else { MessageBox.Show(postResponse.StatusCode.ToString()); }
+                                else
+                                {
+                                    MessageBox.Show(AppResources.ErrorOccured + postResponse.StatusCode.ToString() + AppResources.Report, AppResources.Error, MessageBoxButton.OK);
+                                }
                             });
                         }
                     }

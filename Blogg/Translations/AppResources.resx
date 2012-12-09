@@ -149,6 +149,10 @@
     <value>Error</value>
     <comment>Error</comment>
   </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>Error occured: </value>
+    <comment>Error occured:</comment>
+  </data>
   <data name="LatestPosts" xml:space="preserve">
     <value>latest posts</value>
     <comment>latest posts</comment>
@@ -168,6 +172,10 @@
   <data name="Publishing" xml:space="preserve">
     <value>Publishing...</value>
     <comment>Publishing...</comment>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>. Check your internet connection or contact Blogg's author.</value>
+    <comment>Check your internet connection or contact Blogg's author.</comment>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>sign in</value>
