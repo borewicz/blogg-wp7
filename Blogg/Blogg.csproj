@@ -83,21 +83,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\blogger.cs" />
-    <Compile Include="blogList.xaml.cs">
-      <DependentUpon>blogList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="addPost.xaml.cs">
       <DependentUpon>addPost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\MultiLineItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classes\oAuthClass.cs" />
     <Compile Include="Classes\relativeDateTimeConverter.cs" />
-    <Compile Include="editPost.xaml.cs">
-      <DependentUpon>editPost.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\advanceTextBox.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -112,15 +102,6 @@
       <DependentUpon>splashPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleData\SampleDataSource1\SampleDataSource1.xaml.cs">
-      <DependentUpon>SampleDataSource1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
-      <DependentUpon>SampleDataSource.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="settingsPage.xaml.cs">
-      <DependentUpon>settingsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Translations\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,17 +118,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="blogList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="addPost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="editPost.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -165,18 +138,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SampleData\SampleDataSource1\SampleDataSource1.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SampleData\SampleDataSource\SampleDataSource.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="settingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -184,8 +145,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <DesignTimeOnly Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
-    <DesignTimeOnly Include="SampleData\SampleDataSource1\SampleDataSource1.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Background.png" />
@@ -196,7 +155,6 @@
     <Content Include="icons\blogger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="oldPanorama.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="icons\appbar.add.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

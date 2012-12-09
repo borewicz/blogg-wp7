@@ -31,69 +31,6 @@ namespace Blogg
             get { return localizedResources; }
         }
     }
-    /*
-
-    public class BoolToVisibleOrHidden : IValueConverter
-    {
-        #region Constructors
-        /// <summary>
-        /// The default constructor
-        /// </summary>
-        public BoolToVisibleOrHidden() { }
-        #endregion
- 
-        #region IValueConverter Members
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            bool bValue = (bool)value;
-            if (bValue)
-                return Visibility.Visible;
-            else
-                return Visibility.Collapsed;
-        }
- 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            Visibility visibility = (Visibility)value;
- 
-            if (visibility == Visibility.Visible)
-                return true;
-            else
-                return false;
-        }
-        #endregion
-    }
-
-    public class isVisible : INotifyPropertyChanged
-    {
-        private bool isVisible;
-
-        public bool IsVisible
-        {
-            get
-            {
-                return isVisible;
-            }
-            set
-            {
-                isVisible = value;
-                NotifyPropertyChanged("isVisible");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-    }
-     */
-
-
     public partial class App : Application
     {
         /// <summary>
@@ -105,7 +42,6 @@ namespace Blogg
         public static WebBrowserTask webbrowser;
         public static ProgressIndicator prog;
 
-        //public static blogger blog = new blogger();
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
@@ -119,7 +55,6 @@ namespace Blogg
             InitializeStyleChanges();
             App.blog = new blogger();
             App.prog = new ProgressIndicator();
-            //App.blog.doLogin();
             App.webbrowser = new WebBrowserTask();
             // Phone-specific initialization
             InitializePhoneApplication();
