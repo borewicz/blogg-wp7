@@ -81,14 +81,12 @@ namespace Blogg
                             from items in gr.Items
                             where items.id == (string)navigationParameter
                             select items).First();*/
-                    for (int i = 0; i < App.blog.blogCollection.Count(); i++)
+                    foreach (var b in App.blog.blogCollection)
                     {
-                        for (int j = 0; j < App.blog.blogCollection[i].Items.Count; j++)
+                        foreach (var p in b.Items)
                         {
-                            if ((App.blog.blogCollection[i].Items[j].id == postID) &&
-                                (App.blog.blogCollection[i].Items[j].blogID == blogID))
-                                App.blog.blogCollection[i].Items.RemoveAt(j);
-                            break;
+                            if ((p.id == postID) && (p.blogID == blogID))
+                                b.Items.Remove(p);
                         }
                     }
                     (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
